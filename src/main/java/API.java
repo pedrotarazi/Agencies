@@ -18,15 +18,28 @@ public class API {
             String limit = request.queryParams("limit");
             String offset = request.queryParams("offset");
             String order_by = request.queryParams("order_by");
+
             if (site_id == null || payment_methods_id == null || site_id.equals("") ||
                     payment_methods_id.equals("") || near_to == null || near_to.equals("")){
                 return new Gson().toJson(new StandardResponse(StatusResponse.ERROR,
                         "Faltan parametros obligatorios"));
             }
             else {
-                return new Gson().toJson(new StandardResponse(StatusResponse.SUCCESS,
-                        new Gson().toJsonTree(agencyService.readAgencies(site_id, payment_methods_id,
-                                near_to, limit, offset, order_by))));
+                try {
+                    return new Gson().toJson(new StandardResponse(StatusResponse.SUCCESS,
+                            new Gson().toJsonTree(agencyService.readAgencies(site_id, payment_methods_id,
+                                    near_to, limit, offset, order_by))));
+                } catch (APIException e){
+                    if (e.getMessage().equals("ERROR_CRITERIO")) {
+                        return new Gson().toJson(new StandardResponse(StatusResponse.ERROR_CRITERIO,
+                                "Error en criterio"));
+                    }
+                    else if (e.getMessage().equals("ERROR_COMUNICATION_URL")) {
+                        return new Gson().toJson(new StandardResponse(StatusResponse.ERROR_COMUNICATION_URL,
+                                "Error en comunicacion con URL"));
+                    }
+                    return  new Gson().toJson(new StandardResponse(StatusResponse.ERROR, "Error en API externa"));
+                }
             }
         });
     }

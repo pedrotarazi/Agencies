@@ -124,7 +124,7 @@ public class Agency implements Comparable<Agency>{
     public int compareTo(Agency o) {
         switch (getCriterio().getCriterio()){
             case ("address_line"): {
-                if (o.address.getAddress_line().compareTo(getAddress().getAddress_line()) < 0){
+                if (o.getAddress().getAddress_line().compareTo(getAddress().getAddress_line()) < 0){
                     return 1;
                 }
                 else if (o.getAddress().getAddress_line().compareTo(getAddress().getAddress_line()) > 0){
