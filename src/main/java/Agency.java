@@ -1,4 +1,4 @@
-public class Agency {
+public class Agency implements Comparable<Agency>{
 
     private Address address;
     private String agency_code;
@@ -11,6 +11,8 @@ public class Agency {
     private String phone;
     private String site_id;
     private String terminal;
+
+    private static OrderCriterio criterio;
 
     public Agency(){}
 
@@ -100,5 +102,57 @@ public class Agency {
 
     public void setTerminal(String terminal) {
         this.terminal = terminal;
+    }
+
+    public OrderCriterio getCriterio() {
+        return criterio;
+    }
+
+    public void setCriterio(String criterio) {
+        if (criterio.equals(OrderCriterio.ADDRESS_LINE.getCriterio())) {
+            this.criterio = OrderCriterio.ADDRESS_LINE;
+        }
+        else if (criterio.equals(OrderCriterio.AGENCY_CODE.getCriterio())){
+            this.criterio = OrderCriterio.AGENCY_CODE;
+        }
+        else if (criterio.equals(OrderCriterio.DISTANCE.getCriterio())){
+            this.criterio = OrderCriterio.DISTANCE;
+        }
+    }
+
+    @Override
+    public int compareTo(Agency o) {
+        switch (getCriterio().getCriterio()){
+            case ("address_line"): {
+                if (o.address.getAddress_line().compareTo(getAddress().getAddress_line()) < 0){
+                    return 1;
+                }
+                else if (o.getAddress().getAddress_line().compareTo(getAddress().getAddress_line()) > 0){
+                    return -1;
+                }
+                else {
+                    return 0;
+                }
+            }
+            case ("agency_code"): {
+                if (new Integer(o.getAgency_code()) < new Integer(getAgency_code())) {
+                    return 1;
+                } else if (new Integer(o.getAgency_code()) > new Integer(getAgency_code())) {
+                    return -1;
+                } else {
+                    return 0;
+                }
+            }
+            case ("distance"): {
+                if ((new Double(o.getDistance())) < (new Double(getDistance()))) {
+                    return 1;
+                } else if (new Double(o.getDistance()) > (new Double(getDistance()))) {
+                    return -1;
+                } else {
+                    return 0;
+                }
+            }
+            default: return 0;
+        }
     }
 }
