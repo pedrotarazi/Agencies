@@ -3,7 +3,9 @@ public enum StatusResponse {
     SUCCESS ("Success"),
     ERROR ("Error"),
     ERROR_CRITERIO ("Criterio erroneo"),
-    ERROR_COMUNICATION_URL ("Error en comunicacion con API externa");
+    ERROR_COMUNICATION_URL ("Error en comunicacion con API externa"),
+    ERROR_OBLIGATORIOS ("En parametros obligatorios");
+
 
     private String status;
 

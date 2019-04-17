@@ -1,0 +1,333 @@
+{
+	"info": {
+		"_postman_id": "43cbf485-0e58-4a11-9f08-1e6c8c09bc31",
+		"name": "Agencies API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Parametros obligatorios correctos",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "19bf4566-efac-4d55-ab43-c40f7a6d363d",
+						"exec": [
+							"pm.test(\"GET correcto\", function () {",
+							"        var jsonData = pm.response.json();",
+							"        pm.expect(jsonData.status).to.eql(\"SUCCESS\");",
+							"    });",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:4567/agencies?site_id=MLA&payment_methods_id=rapipago&near_to=-31.412971,-64.18758,300",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4567",
+					"path": [
+						"agencies"
+					],
+					"query": [
+						{
+							"key": "site_id",
+							"value": "MLA"
+						},
+						{
+							"key": "payment_methods_id",
+							"value": "rapipago"
+						},
+						{
+							"key": "near_to",
+							"value": "-31.412971,-64.18758,300"
+						},
+						{
+							"key": "limit",
+							"value": "10",
+							"disabled": true
+						},
+						{
+							"key": "offset",
+							"value": "5",
+							"disabled": true
+						},
+						{
+							"key": "order_by",
+							"value": "address_line",
+							"disabled": true
+						},
+						{
+							"key": "order_by",
+							"value": "agency_code",
+							"disabled": true
+						},
+						{
+							"key": "order_by",
+							"value": "distance",
+							"disabled": true
+						},
+						{
+							"key": "order_by",
+							"value": "lalala",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Faltan parametros obligatorios",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "19bf4566-efac-4d55-ab43-c40f7a6d363d",
+						"exec": [
+							"pm.test(\"Faltan parametros obligatorios\", function () {",
+							"        var jsonData = pm.response.json();",
+							"        pm.expect(jsonData.status).to.eql(\"ERROR_OBLIGATORIOS\");",
+							"    });"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:4567/agencies?site_id=MLA&payment_methods_id=rapipago",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4567",
+					"path": [
+						"agencies"
+					],
+					"query": [
+						{
+							"key": "site_id",
+							"value": "MLA"
+						},
+						{
+							"key": "payment_methods_id",
+							"value": "rapipago"
+						},
+						{
+							"key": "near_to",
+							"value": "-31.412971,-64.18758,300",
+							"disabled": true
+						},
+						{
+							"key": "limit",
+							"value": "10",
+							"disabled": true
+						},
+						{
+							"key": "offset",
+							"value": "5",
+							"disabled": true
+						},
+						{
+							"key": "order_by",
+							"value": "address_line",
+							"disabled": true
+						},
+						{
+							"key": "order_by",
+							"value": "agency_code",
+							"disabled": true
+						},
+						{
+							"key": "order_by",
+							"value": "distance",
+							"disabled": true
+						},
+						{
+							"key": "order_by",
+							"value": "lalala",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Con parametros obligatorios y opcionales",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "19bf4566-efac-4d55-ab43-c40f7a6d363d",
+						"exec": [
+							"pm.test(\"Criterio ordenamiento valido\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.status).to.eql(\"SUCCESS\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:4567/agencies?site_id=MLA&payment_methods_id=rapipago&near_to=-31.412971,-64.18758,300&order_by=address_line",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4567",
+					"path": [
+						"agencies"
+					],
+					"query": [
+						{
+							"key": "site_id",
+							"value": "MLA"
+						},
+						{
+							"key": "payment_methods_id",
+							"value": "rapipago"
+						},
+						{
+							"key": "near_to",
+							"value": "-31.412971,-64.18758,300"
+						},
+						{
+							"key": "limit",
+							"value": "10",
+							"disabled": true
+						},
+						{
+							"key": "offset",
+							"value": "5",
+							"disabled": true
+						},
+						{
+							"key": "order_by",
+							"value": "address_line"
+						},
+						{
+							"key": "order_by",
+							"value": "agency_code",
+							"disabled": true
+						},
+						{
+							"key": "order_by",
+							"value": "distance",
+							"disabled": true
+						},
+						{
+							"key": "order_by",
+							"value": "lalala",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Con metodo de ordenamiento erroneo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "19bf4566-efac-4d55-ab43-c40f7a6d363d",
+						"exec": [
+							"pm.test(\"Criterio ordenamiento erroneo\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.status).to.eql(\"ERROR_CRITERIO\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:4567/agencies?site_id=MLA&payment_methods_id=rapipago&near_to=-31.412971,-64.18758,300&order_by=address",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4567",
+					"path": [
+						"agencies"
+					],
+					"query": [
+						{
+							"key": "site_id",
+							"value": "MLA"
+						},
+						{
+							"key": "payment_methods_id",
+							"value": "rapipago"
+						},
+						{
+							"key": "near_to",
+							"value": "-31.412971,-64.18758,300"
+						},
+						{
+							"key": "limit",
+							"value": "10",
+							"disabled": true
+						},
+						{
+							"key": "offset",
+							"value": "5",
+							"disabled": true
+						},
+						{
+							"key": "order_by",
+							"value": "address"
+						},
+						{
+							"key": "order_by",
+							"value": "agency_code",
+							"disabled": true
+						},
+						{
+							"key": "order_by",
+							"value": "distance",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

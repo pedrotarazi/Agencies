@@ -18,6 +18,10 @@ public class AgencyServiceImplementation implements AgencyService{
         if (limit == null) { limit = ""; }
         if (offset == null) { offset = ""; }
         if (order_by == null) { order_by = ""; }
+        if (site_id == null || payment_method_id == null || site_id.equals("") ||
+                payment_method_id.equals("") || near_to == null || near_to.equals("")) {
+            throw new APIException("ERROR_OBLIGATORIOS");
+        }
         try {
             String url = "https://api.mercadolibre.com/sites/"+site_id+"/payment_methods/"+payment_method_id+
                     "/agencies?"+"near_to="+near_to+"&limit="+limit+"&offset="+offset;
