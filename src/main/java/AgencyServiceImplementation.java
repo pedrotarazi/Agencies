@@ -1,4 +1,7 @@
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -18,16 +21,17 @@ public class AgencyServiceImplementation implements AgencyService{
         if (limit == null) { limit = ""; }
         if (offset == null) { offset = ""; }
         if (order_by == null) { order_by = ""; }
-        if (site_id == null || payment_method_id == null || site_id.equals("") ||
-                payment_method_id.equals("") || near_to == null || near_to.equals("")) {
+        if (site_id == null || payment_method_id == null || site_id.equals("") || payment_method_id.equals("") || near_to == null || near_to.equals("")) {
             throw new APIException("ERROR_OBLIGATORIOS");
         }
         try {
             String url = "https://api.mercadolibre.com/sites/"+site_id+"/payment_methods/"+payment_method_id+
                     "/agencies?"+"near_to="+near_to+"&limit="+limit+"&offset="+offset;
             String data = readUrl.readUrl(url);
+            //JsonElement json = new JsonObject().getAsJsonObject(data).get("results");
             data = data.substring(data.lastIndexOf('['));
             data = data.substring(0, data.length() - 1);
+            //agencies = new Gson().fromJson(json, Agency[].class);
             agencies = new Gson().fromJson(data, Agency[].class);
             if (order_by != ""){
                 if ( !(order_by.equals(OrderCriterio.ADDRESS_LINE.getCriterio()) ||
@@ -39,7 +43,11 @@ public class AgencyServiceImplementation implements AgencyService{
                 agencies = Sort.sortByCriteria(agencies);
             }
             return agencies;
-        } catch (IOException e){
+        } catch (IOException e) {
+            if (e.getMessage().equals("503")) {
+                System.out.println("fdsafdsaf 503");
+                throw new APIException("ERROR_COMUNICATION_URL_503");
+            }
             throw new APIException("ERROR_COMUNICATION_URL");
         }
     }
